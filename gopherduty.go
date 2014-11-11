@@ -48,7 +48,7 @@ func (p *PagerDuty) Acknowledge(incidentKey, description string, details interfa
 }
 
 // Send a RESOLVE event.
-func (p *PagerDuty) Resolve(incidentKey, description, details string) *PagerDutyResponse {
+func (p *PagerDuty) Resolve(incidentKey, description, details interface{}) *PagerDutyResponse {
 	log.Println("Sending RESOLVE event")
 	return p.doRequest(eventResolve, incidentKey, description, "", "", details)
 }
