@@ -1,5 +1,7 @@
-gopherduty
+gopherduty [![Build Status](https://travis-ci.org/darkcrux/gopherduty.png)](https://travis-ci.org/darkcrux/gopherduty)
 ==========
+
+
 
 A simple Go client for PagerDuty. This includes a retry feature when sending to PagerDuty
 
