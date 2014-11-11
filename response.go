@@ -5,7 +5,7 @@ import "encoding/json"
 // The response from calling the PagerDuty API. This can contain errors if the API call failed. Also, any errors
 // encountered when calling the API is added to the Errors list.
 type PagerDutyResponse struct {
-	Status      int      `json:"status"`
+	Status      string   `json:"status"`
 	Message     string   `json:"message"`
 	IncidentKey string   `json:"incident_key,omitempty"`
 	Errors      []string `json:"errors,omitempty"`
