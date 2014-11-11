@@ -51,3 +51,7 @@ response.Message // the return message
 response.IncidentKey // the incident key of the request
 response.Errors // list of errors
 ```
+
+# More Info
+
+More info can be found [here](http://godoc.org/github.com/darkcrux/gopherduty).
