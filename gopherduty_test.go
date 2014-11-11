@@ -36,7 +36,7 @@ func TestRetryOnRequest(t *testing.T) {
 		RetryBaseInterval: 1,
 	}
 
-	expectedRuntime := 8
+	expectedRuntime := 7
 	now := time.Now()
 	response := pd.Trigger("", "", "", "", nil)
 	actual := int(time.Since(now).Seconds())
