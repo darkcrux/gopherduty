@@ -24,7 +24,7 @@ client := gopherduty.NewClient("e93facc04764012d7bfb002500d5d1a6")
 
 #### Configure client
 ```
-client.MaxRetries = 5 // set max retries to 5 before failing, Defaults to 0.
+client.MaxRetry = 5 // set max retries to 5 before failing, Defaults to 0.
 client.RetryBaseInterval = 5 // set first retry to 5s. Defaults to 10s.
 ```
 
