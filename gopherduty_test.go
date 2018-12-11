@@ -1,6 +1,9 @@
 package gopherduty
 
 import (
+	"fmt"
+	"net/http"
+	"net/http/httptest"
 	"testing"
 	"time"
 )
@@ -47,4 +50,34 @@ func TestRetryOnRequest(t *testing.T) {
 		t.Errorf("Expected runtime is %d, actual is %d", expectedRuntime, actual)
 	}
 
+}
+
+func TestRetryOnRatelimit(t *testing.T) {
+	rateLimitErrorMsg := `{
+		"status": "throttle exceeded",
+		"message": "Requests for this service are arriving too quickly.  Please retry later."
+}`
+
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, rateLimitErrorMsg, http.StatusForbidden)
+	}))
+	defer ts.Close()
+
+	pd := &PagerDuty{
+		MaxRetry:          3,
+		RetryBaseInterval: 1,
+		endpoint:          &ts.URL,
+	}
+
+	expectedRuntime := 7
+	now := time.Now()
+	response := pd.Trigger("", "", "", "", nil)
+	actual := int(time.Since(now).Seconds())
+	fmt.Printf("Example error message: %v\n", response.Errors)
+	if !response.HasErrors() {
+		t.Error("This should have been an error")
+	}
+	if actual < expectedRuntime {
+		t.Errorf("Expected runtime is %d, actual is %d", expectedRuntime, actual)
+	}
 }
